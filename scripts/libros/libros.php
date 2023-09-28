@@ -18,5 +18,26 @@ class libros{
         $books = $consulta->fetchAll();
         return $books[0];
     }
+
+    public function create($nombre,$autor,$genero){
+        $query = "INSERT INTO `books`(`boo_name`, `use_id`, `gen_id`) VALUES ('$nombre','$autor','$genero')";
+        $conexion = new Conexion();
+        $conexion->prepare($query);
+        $consulta = $conexion->prepare($query);
+        if ($consulta->execute()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function graficas() {
+        $conexion = new Conexion();
+        $sql = "SELECT COUNT(loans.loa_id), books.boo_name FROM loans INNER JOIN books ON books.boo_id = loans.boo_id;";
+        $consulta = $conexion->prepare($sql);
+        $consulta->execute();
+        $books = $consulta->fetchAll();
+        return $books;
+    }
 }
 ?>

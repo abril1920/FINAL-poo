@@ -1,7 +1,7 @@
 <?php
-include_once 'genero.php';
+include_once 'libros.php';
 
-$generos =genero::mostrar();
+$libross =libros::graficas();
 
 ?>
 <!DOCTYPE html>
@@ -13,6 +13,7 @@ $generos =genero::mostrar();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="../../public/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-primary justify-content-center fixed-top">
@@ -26,45 +27,43 @@ $generos =genero::mostrar();
       <a class="nav-link" href="../libros/administradores.php">Libros</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="../libros/graficas.php">Graficas</a>
+      <a class="nav-link" href="graficas.php">Graficas</a>
     </li>
   </ul>
   </div>
 </nav>
 <div class="container mt-5">
 <a href="../../index.php" class="btn btn-danger">Atras</a>
-<a href="crear.html" class="btn btn-success">Crear genero</a>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Generos</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-      </tr>
-    </thead>
-    <tbody>
-        <?php
-        foreach ($generos as $genero) {
-        ?>
-      <tr>
-        <td><?php echo $genero['gen_gender'] ?></td>
-        <td><form action="editar.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $genero['gen_id'] ?>">
-            <input type="submit" value="Editar" class="btn btn-primary">
-        </form></td>
-
-
-        <td><form action="eliminar.php" method="post">
-            <input type="hidden" name="id" value="<?php echo $genero['gen_id'] ?>">
-            <input type="submit" value="Eliminar" class="btn btn-danger">
-        </form></td>
-      </tr>
-      <?php
-        }
-      ?>
-    </tbody>
-  </table>
+  <div class="container">
+    <div class="row">
+        <div class="col">
+        <canvas id="myChart" style="width:100%;"></canvas>
+        </div>
+    </div>
+  </div>
 </div>
+<script>
+var xValues = ["libro1","libro2","libro3","libro4"];
+var yValues = [55, 49, 44, 24, 15];
+var barColors = ["red", "green","blue","orange","brown"];
 
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "prestamos realizados"
+    }
+  }
+});
+</script>
 </body>
 </html>
