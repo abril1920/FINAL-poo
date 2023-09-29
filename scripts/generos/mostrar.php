@@ -26,7 +26,7 @@ $generos =genero::mostrar();
       <a class="nav-link" href="../libros/administradores.php">Libros</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="../libros/graficas.php">Graficas</a>
+      <a class="nav-link" href="../prestamos/graficas.php">Graficas</a>
     </li>
   </ul>
   </div>

@@ -1,7 +1,8 @@
 <?php
-include_once 'libros.php';
+include_once 'prestamos.php';
 
-$libross =libros::graficas();
+$cants =prestamos::graficas();
+$cants2 =prestamos::graficas2();
 
 ?>
 <!DOCTYPE html>
@@ -37,17 +38,40 @@ $libross =libros::graficas();
   <div class="container">
     <div class="row">
         <div class="col">
-        <canvas id="myChart" style="width:100%;"></canvas>
+        <canvas id="myChart1" style="width:100%;"></canvas>
+        <canvas id="myChart2" style="width:100%;"></canvas>
         </div>
     </div>
   </div>
 </div>
 <script>
-var xValues = ["libro1","libro2","libro3","libro4"];
-var yValues = [55, 49, 44, 24, 15];
+var xValues = [<?php foreach ($cants as $cant) {echo "'".$cant["boo_name"]."',";}?>, ""];
+var yValues = [<?php foreach ($cants as $cant) {echo "'".$cant["total_prestamos"]."',";}?>, 0];
 var barColors = ["red", "green","blue","orange","brown"];
 
-new Chart("myChart", {
+new Chart("myChart1", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "prestamos realizados"
+    }
+  }
+});
+
+var xValues = [<?php foreach ($cants2 as $cant2) {echo "'".$cant2["usu_name"]."',";}?>, ""];
+var yValues = [<?php foreach ($cants2 as $cant2) {echo "'".$cant2["total_libros"]."',";}?>, 0];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart2", {
   type: "bar",
   data: {
     labels: xValues,

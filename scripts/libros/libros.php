@@ -31,13 +31,5 @@ class libros{
         }
     }
 
-    public static function graficas() {
-        $conexion = new Conexion();
-        $sql = "SELECT COUNT(loans.loa_id), books.boo_name FROM loans INNER JOIN books ON books.boo_id = loans.boo_id;";
-        $consulta = $conexion->prepare($sql);
-        $consulta->execute();
-        $books = $consulta->fetchAll();
-        return $books;
-    }
 }
 ?>
